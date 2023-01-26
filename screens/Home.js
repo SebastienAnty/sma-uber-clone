@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, SafeAreaView, Image } from "react-native";
 import NavOptions from "../components/NavOptions";
+import NewFavorites from "../components/Favorites";
 import homeStyles from "../styles/home-styles";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
@@ -53,6 +54,7 @@ const Home = () => {
           debounce={400}
         />
         <NavOptions />
+        <NewFavorites />
       </View>
     </SafeAreaView>
   );

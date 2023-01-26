@@ -1,9 +1,17 @@
 import React from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { GOOGLE_MAPS_APIKEY } from "@env";
 import navCardStyles from "../styles/navCard-styles";
+import { useDispatch } from "react-redux";
+import { setDestination } from "../slices/navSlice";
+import { useNavigation } from "@react-navigation/native";
+import Favorites from "./Favorites";
 
 const NavigateCard = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   return (
     <>
       <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
@@ -30,11 +38,28 @@ const NavigateCard = () => {
               placeholder="Where are you going?"
               styles={navCardStyles}
               fetchDetails={true}
+              returnKeyType={"search"}
               enablePoweredByContainer={false}
+              keepResultsAfterBlur={true}
               nearbyPlacesAPI="GooglePlacesSearch"
               debounce={400}
+              query={{
+                key: GOOGLE_MAPS_APIKEY,
+                language: "en",
+              }}
+              minLength={2}
+              onPress={(data, details = null) => {
+                dispatch(
+                  setDestination({
+                    location: details.geometry.location,
+                    description: data.description,
+                  })
+                );
+                navigation.navigate("RideCard");
+              }}
             />
           </View>
+          <Favorites />
         </View>
       </SafeAreaView>
     </>

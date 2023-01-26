@@ -7,7 +7,7 @@ const navCardStyles = StyleSheet.create({
     flex: 0,
   },
   textInput: {
-    backgroundColor: "#DDDDDF",
+    backgroundColor: "#blue",
     borderRadius: 0,
     fontSize: 18,
   },

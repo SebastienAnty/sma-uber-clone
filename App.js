@@ -1,4 +1,5 @@
 import { store } from "./store";
+import { KeyboardAvoidingView, Platform } from "react-native";
 import { Provider } from "react-redux";
 import { StatusBar } from "expo-status-bar";
 import "react-native-gesture-handler";
@@ -16,18 +17,24 @@ export default function App() {
       <StatusBar style="dark" />
       <NavigationContainer>
         <SafeAreaProvider>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="HomeScreen"
-              component={Home}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="MapScreen"
-              component={MapScreen}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={{ flex: 1 }}
+            keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
+          >
+            <Stack.Navigator>
+              <Stack.Screen
+                name="HomeScreen"
+                component={Home}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="MapScreen"
+                component={MapScreen}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </KeyboardAvoidingView>
         </SafeAreaProvider>
       </NavigationContainer>
     </Provider>
